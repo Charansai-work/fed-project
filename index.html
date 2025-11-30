@@ -1,472 +1,661 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UniPlace</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-
-  <!-- Material Dashboard Professional Theme -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UniPlace — Clean</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary: #007bff;
-      --secondary: #6c757d;
-      --bg: #f4f6f9;
-      --card-bg: #ffffff;
-      --sidebar-bg: #1e272e;
-      --sidebar-hover: #3c40c6;
-    }
-
-    body {
-      font-family: "Poppins", sans-serif;
-      margin: 0;
-      background: var(--bg);
-      color: #2f3640;
-      transition: 0.3s ease;
-    }
-
-    /* Top Bar */
-    .topbar {
-      background: var(--primary);
-      color: white;
-      padding: 12px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.08);
-    }
-
-    /* Sidebar */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 220px;
-      height: 100vh;
-      background: var(--sidebar-bg);
-      padding: 25px 0;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      transition: 0.3s;
-    }
-    .sidebar h3 {
-      text-align: center;
-      margin-bottom: 10px;
-      color: #fff;
-    }
-    .sidebar ul {
-      list-style: none;
-      padding: 0;
-    }
-    .sidebar li {
-      margin: 10px 0;
-    }
-    .sidebar a {
-      padding: 12px 20px;
-      display: block;
-      color: white;
-      text-decoration: none;
-      font-size: 15px;
-      border-left: 4px solid transparent;
-      transition: 0.25s;
-    }
-    .sidebar a:hover, .sidebar a.active {
-      background: var(--sidebar-hover);
-      border-left: 4px solid white;
-    }
-
-    /* Page Content */
-    .content {
-      margin-left: 240px;
-      padding: 24px;
-      animation: fadeIn 0.5s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    /* Job Cards */
-    .job-card {
-      background: var(--card-bg);
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 18px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .job-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-    }
-
-    /* Login */
-    .login-container {
-      display: none;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: #dcdde1;
-    }
-
-    .login-box {
-      background: white;
-      width: 360px;
-      padding: 24px;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-      animation: fadeIn 0.5s ease;
-    }
-
-    .login-box input, .login-box select {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      margin-top: 10px;
-      font-size: 15px;
-    }
-
-    button {
-      width: 100%;
-      margin-top: 15px;
-      background: var(--primary);
-      border: none;
-      padding: 10px;
-      color: white;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.3s ease;
-    }
-    button:hover:not(:disabled) {
-      background: #0056c9;
-    }
-    button:disabled {
-      background: gray;
-      cursor: not-allowed;
-    }
-
-    table.data-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 12px;
-      background: var(--card-bg);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-    table.data-table th, table.data-table td {
-      padding: 12px 14px;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-    }
-    table.data-table th {
-      background: #f7f9fb;
-    }
-
-    .report-list {
-      background: var(--card-bg);
-      padding: 12px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    .muted { color:#666; font-size:13px }
-
-    @media (max-width: 768px) {
-      .sidebar { width: 180px }
-      .content { margin-left: 200px }
-      .login-box { width: 320px }
-    }
+    :root{--primary:#4f46e5;--accent:#06b6d4;--bg:#eef2ff;--card:#fff;--muted:#6b7280}
+    *{box-sizing:border-box}html,body{height:100%;margin:0;font-family:Poppins,system-ui,Arial}
+    body{background:linear-gradient(180deg,#f8fafc,#eef2ff);color:#0f172a}
+    .topbar{position:fixed;left:240px;right:0;top:0;height:64px;background:linear-gradient(90deg,var(--primary),var(--accent));color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 20px;box-shadow:0 6px 24px rgba(15,23,42,0.12);z-index:50}
+    .sidebar{position:fixed;left:0;top:0;width:240px;height:100vh;background:#071026;padding:28px 18px;color:#e6eef8;box-shadow:6px 0 18px rgba(2,6,23,0.25)}
+    .sidebar h3{margin:0 0 12px 0;text-align:center}
+    .sidebar a{display:block;color:rgba(255,255,255,0.85);padding:10px;border-radius:8px;text-decoration:none;margin:8px 0}
+    .sidebar a.active{background:rgba(255,255,255,0.04);border-left:4px solid rgba(255,255,255,0.08)}
+    .content{margin-left:240px;padding:92px 28px 40px}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 8px 20px rgba(2,6,23,0.06);margin-bottom:16px}
+    .muted{color:var(--muted)}
+    input,select,textarea{padding:10px;border-radius:8px;border:1px solid #e6e9ef}
+    .btn{padding:10px 14px;border-radius:10px;border:none;background:linear-gradient(90deg,#4f46e5,#06b6d4);color:#fff;cursor:pointer}
+    .btn.secondary{background:transparent;border:1px solid rgba(15,23,42,0.06);color:var(--muted)}
+    .apply-btn{background:linear-gradient(90deg,#16a34a,#22c55e)}
+    .view-btn{background:linear-gradient(90deg,#4f46e5,#06b6d4)}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px;border-bottom:1px solid #f1f5f9;text-align:left}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.45);display:none;align-items:center;justify-content:center;z-index:200}
+    .modal{background:var(--card);padding:18px;border-radius:12px;max-width:720px;width:96%;box-shadow:0 30px 80px rgba(2,6,23,0.2)}
+    @media(max-width:640px){.sidebar{display:none}.topbar{left:0}.content{margin-left:0;padding:84px 16px}}
   </style>
 </head>
 <body>
-
   <div class="topbar" id="topbar" style="display:none">
-    <div>
-      <h2 style="margin:0">UniPlace</h2>
-      <div id="userBadge" class="muted" style="margin-left:12px;display:inline-block"></div>
-    </div>
-    <div>
-      <button onclick="showLogin()">Logout</button>
-    </div>
+    <div style="display:flex;align-items:center;gap:12px"><strong>UniPlace</strong><span id="userBadge" class="muted"></span></div>
+    <div><button id="logoutBtn" class="btn" style="background:linear-gradient(90deg,#ef4444,#dc2626)">Logout</button></div>
   </div>
 
-  <div class="sidebar" id="sidebar" style="display:none">
+  <aside class="sidebar" id="sidebar" style="display:none">
     <h3>Menu</h3>
-    <ul>
-      <li><a href="#" onclick="showPage('dashboard', this)" class="active">Dashboard</a></li>
-      <li><a href="#" onclick="showPage('jobs', this)">Jobs</a></li>
-      <li><a href="#" onclick="showPage('applications', this)">Applications</a></li>
-      <li><a href="#" onclick="showPage('reports', this)">Reports</a></li>
-    </ul>
+    <nav>
+      <a href="#" data-page="dashboard" class="active">Dashboard</a>
+      <a href="#" data-page="jobs">Jobs</a>
+      <a href="#" data-page="applications">Applications</a>
+      <a href="#" data-page="reports">Reports</a>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.04);margin:12px 0">
+      <a href="#" data-page="profile">Profile</a>
+      <a href="#" data-page="companies">Companies</a>
+      <a href="#" data-page="events">Events</a>
+      <a href="#" data-page="settings">Settings</a>
+      <!-- admin link (visible for admin role) -->
+      <a href="#" data-page="admin" id="adminNavLink" style="display:none">Admin — System Controls</a>
+    </nav>
+  </aside>
+
+  <main id="main-content" class="content" style="display:none"></main>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal-backdrop" style="display:flex;align-items:center;justify-content:center">
+    <div class="modal" style="max-width:420px;text-align:center">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;justify-content:center">
+        <div style="width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#7c3aed,#06b6d4);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700">UP</div>
+        <div style="text-align:left">
+          <h2 style="margin:0;font-size:20px">Welcome to UniPlace</h2>
+          <div style="font-size:13px;color:var(--muted)">Sign in to access jobs and placements</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px">
+        <input id="name" placeholder="Full name" />
+        <input id="email" placeholder="Email address" />
+        <select id="role"><option value="student">Student</option><option value="employer">Employer</option><option value="placement_officer">Placement Officer</option><option value="admin">Admin</option></select>
+        <div style="display:flex;gap:8px">
+          <button id="loginBtn" class="btn">Sign in</button>
+          <button id="demoBtn" class="btn secondary">Fill Demo Student</button>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="content" id="main-content" style="display:none">
-    <h3>Welcome to UniPlace!</h3>
-    <div class="job-card"><h4>Frontend Developer</h4><p>TechCorp - Remote</p></div>
-    <div class="job-card"><h4>Data Analyst</h4><p>DataSolve - Hyderabad</p></div>
+  <!-- Apply Modal -->
+  <div id="applyModal" class="modal-backdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <h3 id="applyTitle">Apply for Job</h3>
+      <div id="applyJobInfo" class="muted" style="margin-bottom:8px"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+        <input id="applyName" placeholder="Full name" style="flex:1" />
+        <input id="applyEmail" placeholder="Email" style="width:260px;min-width:160px" />
+      </div>
+      <input id="applyResume" placeholder="Resume link (optional)" style="margin-bottom:8px" />
+      <textarea id="applyCover" rows="4" placeholder="Cover letter / message"></textarea>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
+        <button id="applyCancel" class="btn secondary">Cancel</button>
+        <button id="applySubmit" class="btn">Submit Application</button>
+      </div>
+    </div>
   </div>
 
-  <!-- Login Screen -->
-  <div class="login-container" id="login">
-    <div class="login-box">
-      <h2>Login</h2>
-      <input type="text" id="name" placeholder="Name" />
-      <input type="email" id="email" placeholder="Email" oninput="validateEmail()" />
-      <p id="emailError" style="color:red;font-size:13px;text-align:left"></p>
-      <select id="role">
-        <option value="student">Student</option>
-        <option value="placement_officer">Placement Officer</option>
-        <option value="admin">Admin</option>
-      </select>
-      <button id="loginBtn" onclick="login()" disabled>Login</button>
+  <!-- Success Modal -->
+  <div id="successModal" class="modal-backdrop">
+    <div class="modal" style="max-width:420px;text-align:center">
+      <h3 style="color:#16a34a">Application Successful!</h3>
+      <p>Your application has been submitted.</p>
+      <div style="margin-top:12px"><button id="successOk" class="btn" style="background:linear-gradient(90deg,#16a34a,#22c55e)">OK</button></div>
     </div>
   </div>
 
   <script>
-    // sample placement records (persisted to localStorage for demo)
+    // --- Storage helpers ---
     const DEFAULT_RECORDS = [
       { student: 'Rahul K', dept: 'CSE', company: 'CodeWave', package: 8.0, year: 2025 },
       { student: 'Asha S', dept: 'AIML', company: 'SmartAI', package: 7.2, year: 2025 }
     ];
 
-    function setActiveLink(el) {
-      document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
-      if (el) el.classList.add('active');
+    function getStorage(key, fallback){ try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; } catch(e){ return fallback; } }
+    function setStorage(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
+
+    function getJobs(){
+      let jobs = getStorage('jobs', null);
+      if (!jobs){
+        jobs = [
+          { id:1, title:'Software Engineer', company:'CodeWave', location:'Bengaluru', description:'Full-time SE role', postedOn: new Date().toISOString().slice(0,10) },
+          { id:2, title:'AI Intern', company:'SmartAI', location:'Hyderabad', description:'3 month internship', postedOn: new Date().toISOString().slice(0,10) }
+        ];
+        setStorage('jobs', jobs);
+      }
+      return jobs;
+    }
+    function saveJobs(j){ setStorage('jobs', j); }
+
+    function getApplications(){ return getStorage('applications', []); }
+    function saveApplications(a){ setStorage('applications', a); }
+
+    function getPlacementRecords(){ const r = getStorage('placementRecords', null); if (!r){ setStorage('placementRecords', DEFAULT_RECORDS); return DEFAULT_RECORDS.slice(); } return r; }
+    function savePlacementRecords(arr){ setStorage('placementRecords', arr); }
+
+    // --- System-level helpers (admin) ---
+    function isMaintenanceMode(){ return localStorage.getItem('maintenanceMode') === 'true'; }
+    function setMaintenanceMode(val){ localStorage.setItem('maintenanceMode', val? 'true':'false'); }
+    function getSystemLogs(){ return getStorage('systemLogs', []); }
+    function addSystemLog(msg){ const logs = getSystemLogs(); logs.push({ ts: new Date().toISOString(), msg }); setStorage('systemLogs', logs); }
+
+    // --- DOM helpers ---
+    const main = document.getElementById('main-content');
+
+    function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    // utility: update active link
+    function setActive(page){
+      const navLinks = Array.from(document.querySelectorAll('.sidebar a'));
+      navLinks.forEach(a=>a.classList.toggle('active', a.dataset.page===page));
     }
 
-    function showPage(page, el) {
-      setActiveLink(el);
-      const main = document.getElementById('main-content');
+    // --- Renderers ---
+    function renderDashboard(){
+      const apps = getApplications();
+      main.innerHTML = '';
+      const card = document.createElement('div'); card.className='card'; card.innerHTML = '<h3>Dashboard</h3><p class="muted">Quick overview</p>';
+      const stats = document.createElement('div'); stats.className='card'; stats.innerHTML = '<strong>Quick Stats</strong><ul style="margin:8px 0 0 18px"><li>Total Jobs: '+getJobs().length+'</li><li>Applications: '+apps.length+'</li></ul>';
+      main.appendChild(card); main.appendChild(stats);
+
+      // show maintenance banner if active
+      if(isMaintenanceMode()){
+        const m = document.createElement('div'); m.className='card'; m.innerHTML = '<strong style="color:#f59e0b">System Maintenance Mode Active</strong><p class="muted">Some features are disabled for regular users.</p>';
+        main.insertBefore(m, card.nextSibling);
+      }
+
+      // show system banner if set
+      const banner = localStorage.getItem('systemBanner') || '';
+      if(banner){
+        const b = document.createElement('div'); b.className='card'; b.innerHTML = '<strong>System Message</strong><p class="muted" style="margin-top:6px">'+escapeHtml(banner)+'</p>';
+        main.insertBefore(b, card.nextSibling);
+      }
+    }
+
+    function renderJobs(){
+      main.innerHTML='';
       const role = localStorage.getItem('role') || 'student';
+      const jobs = getJobs();
+      const apps = getApplications();
+
+      const header = document.createElement('div'); header.className='card'; header.style.display='flex'; header.style.justifyContent='space-between'; header.style.alignItems='center';
+      header.innerHTML = '<div><h3>Jobs</h3><p class="muted">Available opportunities</p></div>';
+      const controls = document.createElement('div'); controls.style.display='flex'; controls.style.gap='8px';
+      const seedJobsBtn = document.createElement('button'); seedJobsBtn.className='btn view-btn'; seedJobsBtn.textContent='Generate Sample Jobs (100)'; seedJobsBtn.onclick = seedMoreJobs; controls.appendChild(seedJobsBtn);
+      const seedInternsBtn = document.createElement('button'); seedInternsBtn.className = 'btn view-btn'; seedInternsBtn.textContent = 'Generate Intern Jobs (200)'; seedInternsBtn.style.marginLeft = '6px'; seedInternsBtn.onclick = seedMoreInternJobs; controls.appendChild(seedInternsBtn);
+      if (role==='student'){ const applyAll = document.createElement('button'); applyAll.className='btn apply-btn'; applyAll.textContent='Apply To All Jobs'; applyAll.onclick = seedApplyAllForStudent; controls.appendChild(applyAll); }
+      header.appendChild(controls); main.appendChild(header);
+
+      if (['employer','placement_officer','admin'].includes(role)){
+        const postCard = document.createElement('div'); postCard.className='card'; postCard.innerHTML = '<h4>Post a Job</h4>';
+        const form = document.createElement('div'); form.style.display='flex'; form.style.gap='8px'; form.style.flexWrap='wrap';
+        const fields = ['jobTitle','jobCompany','jobLocation','jobDesc'];
+        fields.forEach(id=>{ const ip=document.createElement('input'); ip.id=id; ip.placeholder = id.replace('job','').trim(); form.appendChild(ip); });
+        const postBtn = document.createElement('button'); postBtn.className='btn'; postBtn.textContent='Post Job'; postBtn.onclick = handlePostJob; form.appendChild(postBtn); postCard.appendChild(form); main.appendChild(postCard);
+      }
+
+      const grid = document.createElement('div'); grid.style.display='flex'; grid.style.gap='12px'; grid.style.flexWrap='wrap';
+      jobs.forEach(j=>{
+        const card = document.createElement('div'); card.className='card'; card.style.width='320px';
+        card.innerHTML = '<h4>'+escapeHtml(j.title)+'</h4><p><strong>Company:</strong> '+escapeHtml(j.company)+'</p><p class="muted">'+escapeHtml(j.description||'')+'</p><p class="muted" style="font-size:12px;margin-top:8px">Posted: '+(j.postedOn||'')+'</p>';
+        const actions = document.createElement('div'); actions.style.marginTop='8px';
+        const applied = apps.some(a=>a.jobId===j.id && (a.applicantEmail===localStorage.getItem('email')||a.applicant===localStorage.getItem('name')));
+        if (localStorage.getItem('role')==='student'){
+          const btn = document.createElement('button'); btn.className='btn apply-btn';
+          // reflect maintenance mode
+          btn.textContent = applied? 'Applied ✓' : (isMaintenanceMode()? 'Applying Disabled' : 'Apply');
+          btn.disabled = applied || isMaintenanceMode();
+          if(!applied && !isMaintenanceMode()) btn.onclick = ()=>openApplyModal(j.id);
+          actions.appendChild(btn);
+        }
+        grid.appendChild(card); card.appendChild(actions);
+      });
+      main.appendChild(grid);
+    }
+
+    function renderApplications(){
+      main.innerHTML='';
+      const role = localStorage.getItem('role') || 'student';
+      let apps = getApplications().slice().reverse();
+      const filterJobId = sessionStorage.getItem('applicationsFilterJobId');
+      if (filterJobId) apps = apps.filter(a=>String(a.jobId)===String(filterJobId));
+      if (role==='employer'){
+        const myEmail = localStorage.getItem('email')||''; const myJobs = getJobs().filter(j=>j.posterEmail===myEmail); const myCompanies = new Set(myJobs.map(j=>j.company)); apps = apps.filter(a=>myCompanies.has(a.company));
+      } else if (role==='student'){
+        const user = localStorage.getItem('email')||localStorage.getItem('name')||'unknown'; apps = apps.filter(a=>a.applicantEmail===user||a.applicant===user);
+      }
+
+      const header = document.createElement('div'); header.className='card'; header.style.display='flex'; header.style.justifyContent='space-between'; header.innerHTML = '<div><h4>Applications</h4><p class="muted">Status Tracking</p></div>';
+      if (['placement_officer','admin','employer'].includes(role)){ const seedBtn = document.createElement('button'); seedBtn.className='btn view-btn'; seedBtn.textContent='Generate Demo Applications'; seedBtn.onclick = seedDemoApplications; header.appendChild(seedBtn); } else if (role==='student'){ const seedMy = document.createElement('button'); seedMy.className='btn view-btn'; seedMy.textContent='Generate My Demo Applications'; seedMy.onclick = seedMyApplications; header.appendChild(seedMy); }
+      main.appendChild(header);
+
+      const table = document.createElement('table'); const thead = document.createElement('thead'); const tr = document.createElement('tr');
+      tr.innerHTML = ['Job','Company'].map(h=>'<th>'+h+'</th>').join('') + (['placement_officer','admin','employer'].includes(role)?'<th>Applicant</th>':'') + '<th>Applied On</th><th>Status</th>' + (role==='student'?'<th>Action</th>':'');
+      thead.appendChild(tr); table.appendChild(thead);
+      const tbody = document.createElement('tbody'); apps.forEach((a,idx)=>{
+        const row = document.createElement('tr'); let cells = '<td>'+escapeHtml(a.job)+'</td><td>'+escapeHtml(a.company)+'</td>';
+        if (['placement_officer','admin','employer'].includes(role)) cells += '<td>'+escapeHtml(a.applicant||'')+'</td>';
+        cells += '<td>'+escapeHtml(a.appliedOn)+'</td>';
+        const color = a.status==='Shortlisted' ? 'green' : a.status==='Rejected' ? 'red' : 'orange';
+        cells += '<td style="color:'+color+'">'+escapeHtml(a.status)+'</td>';
+        if (role==='student') cells += '<td><button class="btn secondary" data-idx="'+idx+'">Withdraw</button></td>';
+        row.innerHTML = cells; tbody.appendChild(row);
+      });
+      table.appendChild(tbody); main.appendChild(table);
+    }
+
+    function renderReports(){ main.innerHTML=''; const records = getPlacementRecords(); const card = document.createElement('div'); card.className='card'; card.innerHTML = '<h4>Placement Reports</h4><p class="muted">Overall analytics & stats</p>'; const recCard = document.createElement('div'); recCard.className='card'; recCard.innerHTML = '<strong>Records</strong>'; const tbl = document.createElement('table'); const thead = document.createElement('thead'); thead.innerHTML = '<tr><th>Student</th><th>Dept</th><th>Company</th><th>Package (LPA)</th><th>Year</th></tr>'; tbl.appendChild(thead); const tbody = document.createElement('tbody'); records.forEach(r=>{ const tr = document.createElement('tr'); tr.innerHTML = '<td>'+escapeHtml(r.student)+'</td><td>'+escapeHtml(r.dept)+'</td><td>'+escapeHtml(r.company)+'</td><td>'+escapeHtml(String(r.package))+'</td><td>'+escapeHtml(String(r.year))+'</td>'; tbody.appendChild(tr); }); tbl.appendChild(tbody); recCard.appendChild(tbl); main.appendChild(card); main.appendChild(recCard); }
+
+    function renderProfile(){ renderProfileView(); }
+    function renderProfileView(){
+      main.innerHTML='';
       const name = localStorage.getItem('name') || '';
+      const email = localStorage.getItem('email') || '';
+      const dept = localStorage.getItem('dept') || '';
+      const year = localStorage.getItem('year') || '';
+      const gpa = localStorage.getItem('gpa') || '';
+      const phone = localStorage.getItem('phone') || '';
+      const resume = localStorage.getItem('resume') || '';
 
-      main.innerHTML = <h3>${page.charAt(0).toUpperCase() + page.slice(1)}</h3>;
+      const apps = getApplications();
+      const userKey = email || name;
+      const myApps = apps.filter(a => (a.applicantEmail === userKey) || (a.applicant === name));
 
-      if (page === 'dashboard') {
-        if (role === 'placement_officer') {
-          main.innerHTML += <div class='job-card'><h4>Officer Dashboard</h4><p>Welcome back, ${name}. Manage records and view reports below.</p></div>;
-        } else {
-          main.innerHTML += <div class='job-card'><h4>Welcome Back!</h4><p>Here's your quick overview.</p></div>;
-        }
+      const card = document.createElement('div'); card.className='card';
+      card.innerHTML = `
+        <div style="display:flex;gap:14px;align-items:center">
+          <div style="width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,#7c3aed,#06b6d4);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:20px">${escapeHtml(name ? name.split(' ').map(s=>s[0]||'').slice(0,2).join('') : 'U')}</div>
+          <div style="flex:1">
+            <h3 style="margin:0">${escapeHtml(name || 'Guest')}</h3>
+            <div class="muted">${escapeHtml(email || '')}</div>
+            <div style="margin-top:8px"><span class="muted">Applications:</span> <strong>${myApps.length}</strong> &nbsp; <button class="btn secondary" id="viewMyAppsBtn">View Applications</button></div>
+          </div>
+          <div style="margin-left:12px">
+            <button id="editProfileBtn" class="btn">Edit</button>
+          </div>
+        </div>
 
-        main.innerHTML += `
-          <div class='report-list' style='margin-top:12px;'>
-            <strong>Quick Stats</strong>
-            <ul>
-              <li>Total Jobs: 128</li>
-              <li>Applications: 24</li>
-              <li>Shortlisted: 8</li>
-            </ul>
-          </div>`;
+        <hr style="margin:12px 0;border:none;border-top:1px solid #eef2ff">
 
-      } else if (page === 'jobs') {
-        main.innerHTML += `
-          <div style='display:flex;gap:12px;flex-wrap:wrap;'>
-            <div class='job-card' style='width:320px;'><h4>Software Engineer</h4><p>Company: CodeWave</p><p>Location: Bengaluru</p></div>
-            <div class='job-card' style='width:320px;'><h4>AI Intern</h4><p>Company: SmartAI</p><p>Location: Hyderabad</p></div>
-            <div class='job-card' style='width:320px;'><h4>UX Designer</h4><p>Company: CreativeLabs</p><p>Location: Remote</p></div>
-          </div>`;
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div><div class="muted">Department</div><div style="margin-top:6px">${escapeHtml(dept || '-')}</div></div>
+          <div><div class="muted">Year</div><div style="margin-top:6px">${escapeHtml(year || '-')}</div></div>
+          <div><div class="muted">GPA / CPI</div><div style="margin-top:6px">${escapeHtml(gpa || '-')}</div></div>
+          <div><div class="muted">Phone</div><div style="margin-top:6px">${escapeHtml(phone || '-')}</div></div>
+          <div style="grid-column:1 / -1"><div class="muted">Resume Link</div><div style="margin-top:6px">${resume ? '<a href="'+escapeHtml(resume)+'" target="_blank">'+escapeHtml(resume)+'</a>' : '-'}</div></div>
+        </div>
+      `;
 
-      } else if (page === 'applications') {
-        main.innerHTML += `
-          <div class='job-card'><h4>My Applications</h4><p>Status Tracking</p></div>
-          <table class='data-table'>
-            <thead><tr><th>Job</th><th>Company</th><th>Applied On</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr><td>Frontend Developer</td><td>TechCorp</td><td>2025-11-10</td><td style='color:green'>Shortlisted</td></tr>
-              <tr><td>Data Analyst</td><td>DataSolve</td><td>2025-11-08</td><td style='color:orange'>Pending</td></tr>
-              <tr><td>AI Intern</td><td>SmartAI</td><td>2025-10-22</td><td style='color:red'>Rejected</td></tr>
-            </tbody>
-          </table>`;
+      main.appendChild(card);
 
-      } else if (page === 'reports') {
-        if (role === 'placement_officer') {
-          // officer: editable records + add form
-          main.innerHTML += `
-            <div class='job-card'><h4>Placement Records & Reports (Officer)</h4><p class='muted'>Manage placed students and export reports.</p>
-              <div style='margin-top:12px'>
-                <div style='display:flex;gap:8px;'><input id='recStudent' placeholder='Student Name' /><input id='recDept' placeholder='Dept' /></div>
-                <div style='display:flex;gap:8px;margin-top:8px;'><input id='recCompany' placeholder='Company' /><input id='recPackage' placeholder='Package (LPA)' type='number' step='0.1' /></div>
-                <div style='display:flex;gap:8px;margin-top:8px;'><input id='recYear' placeholder='Year' type='number' /><button onclick='addPlacementRecord()'>Add Record</button></div>
-              </div>
-            </div>
-            <div id='recordsArea'></div>`;
-          renderPlacementRecords();
-        } else {
-          // student/admin: read-only reports
-          const records = getPlacementRecords();
-          main.innerHTML += `
-            <div class='job-card'><h4>Placement Reports</h4><p>Overall analytics & stats</p></div>
-            <div class='report-list'>
-              <strong>Placement Summary</strong>
-              <ul>
-                <li>Placement Rate: 92%</li>
-                <li>Top Departments: CSE, AIML</li>
-                <li>Avg Package: ₹6.2 LPA</li>
-              </ul>
-            </div>
+      document.getElementById('viewMyAppsBtn').addEventListener('click', function(){ sessionStorage.removeItem('applicationsFilterJobId'); navigateTo('applications'); });
+      document.getElementById('editProfileBtn').addEventListener('click', function(){ renderProfileEdit(); });
+    }
 
-            <div style='margin-top:12px;' class='report-list'>
-              <strong>Records</strong>
-              <table class='data-table'>
-                <thead><tr><th>Student</th><th>Dept</th><th>Placed Company</th><th>Package (LPA)</th><th>Year</th></tr></thead>
-                <tbody>
-                  ${records.map(r => <tr><td>${r.student}</td><td>${r.dept}</td><td>${r.company}</td><td>${r.package}</td><td>${r.year}</td></tr>).join('')}
-                </tbody>
-              </table>
-            </div>`;
-        }
-      } else {
-        main.innerHTML += '<p>Page not found.</p>';
+    function renderProfileEdit(){
+      main.innerHTML='';
+      const name = localStorage.getItem('name') || '';
+      const email = localStorage.getItem('email') || '';
+      const dept = localStorage.getItem('dept') || '';
+      const year = localStorage.getItem('year') || '';
+      const gpa = localStorage.getItem('gpa') || '';
+      const phone = localStorage.getItem('phone') || '';
+      const resume = localStorage.getItem('resume') || '';
+
+      const card = document.createElement('div'); card.className='card';
+      card.innerHTML = `
+        <h3>Profile — Edit</h3>
+        <div style="margin-top:12px">
+          <table style="width:100%;border-collapse:collapse">
+            <tr><td class="muted" style="width:180px;padding:6px 4px">Full Name</td><td><input id="profileName" style="width:100%" value="${escapeHtml(name)}"></td></tr>
+            <tr><td class="muted" style="padding:6px 4px">Email</td><td><input id="profileEmail" style="width:100%" value="${escapeHtml(email)}"></td></tr>
+            <tr><td class="muted" style="padding:6px 4px">Department</td><td><input id="profileDept" style="width:100%" value="${escapeHtml(dept)}"></td></tr>
+            <tr><td class="muted" style="padding:6px 4px">Year</td><td><input id="profileYear" style="width:100%" value="${escapeHtml(year)}"></td></tr>
+            <tr><td class="muted" style="padding:6px 4px">GPA / CPI</td><td><input id="profileGpa" style="width:100%" value="${escapeHtml(gpa)}"></td></tr>
+            <tr><td class="muted" style="padding:6px 4px">Phone</td><td><input id="profilePhone" style="width:100%" value="${escapeHtml(phone)}"></td></tr>
+            <tr><td class="muted" style="padding:6px 4px">Resume Link</td><td><input id="profileResume" style="width:100%" value="${escapeHtml(resume)}"></td></tr>
+          </table>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+          <button class="btn secondary" id="resetProfileBtn">Reset</button>
+          <button class="btn" id="saveProfileBtn">Save Profile</button>
+          <button class="btn secondary" id="cancelEditBtn">Cancel</button>
+        </div>
+      `;
+
+      main.appendChild(card);
+
+      document.getElementById('saveProfileBtn').addEventListener('click', function(){
+        const newName = document.getElementById('profileName').value.trim();
+        const newEmail = document.getElementById('profileEmail').value.trim();
+        const newDept = document.getElementById('profileDept').value.trim();
+        const newYear = document.getElementById('profileYear').value.trim();
+        const newGpa = document.getElementById('profileGpa').value.trim();
+        const newPhone = document.getElementById('profilePhone').value.trim();
+        const newResume = document.getElementById('profileResume').value.trim();
+        if(!newName || !newEmail){ alert('Please enter name and email'); return; }
+        localStorage.setItem('name', newName);
+        localStorage.setItem('email', newEmail);
+        localStorage.setItem('dept', newDept);
+        localStorage.setItem('year', newYear);
+        localStorage.setItem('gpa', newGpa);
+        localStorage.setItem('phone', newPhone);
+        localStorage.setItem('resume', newResume);
+        document.getElementById('userBadge').textContent = newName + ' (' + (localStorage.getItem('role')||'student').replace(/_/g,' ') + ')';
+        showProfileSavedToast();
+        setTimeout(renderProfileView, 600);
+      });
+
+      document.getElementById('resetProfileBtn').addEventListener('click', function(){
+        document.getElementById('profileName').value = name;
+        document.getElementById('profileEmail').value = email;
+        document.getElementById('profileDept').value = dept;
+        document.getElementById('profileYear').value = year;
+        document.getElementById('profileGpa').value = gpa;
+        document.getElementById('profilePhone').value = phone;
+        document.getElementById('profileResume').value = resume;
+      });
+
+      document.getElementById('cancelEditBtn').addEventListener('click', function(){ renderProfileView(); });
+    }
+
+    function renderCompanies(){ main.innerHTML=''; const companies = Array.from(new Set(getJobs().map(j=>j.company))).slice(0,50); const card = document.createElement('div'); card.className='card'; card.innerHTML = '<h3>Companies</h3><p class="muted">Explore hiring companies</p>'; const list = document.createElement('div'); list.className='card'; list.style.display='grid'; list.style.gridTemplateColumns='repeat(auto-fill,minmax(220px,1fr))'; list.style.gap='12px'; companies.forEach(c=>{ const openings = getJobs().filter(j=>j.company===c).length; const ccard = document.createElement('div'); ccard.className='card'; ccard.innerHTML = '<strong>'+escapeHtml(c)+'</strong><p class="muted">Openings: '+openings+'</p><p style="margin-top:8px"><button class="btn view-btn" data-company="'+escapeHtml(c)+'">View Jobs</button></p>'; ccard.querySelector('button').addEventListener('click', ()=>viewJobsForCompany(c)); list.appendChild(ccard); }); main.appendChild(card); main.appendChild(list); }
+
+    function viewJobsForCompany(company){ const allJobs = getJobs(); const filtered = allJobs.filter(j=>j.company===company); main.innerHTML=''; const header = document.createElement('div'); header.className='card'; header.innerHTML = '<h3>Jobs at '+escapeHtml(company)+'</h3><p class="muted">'+filtered.length+' openings</p>'; main.appendChild(header); const grid = document.createElement('div'); grid.style.display='flex'; grid.style.flexWrap='wrap'; grid.style.gap='12px'; const apps = getApplications(); filtered.forEach(j=>{ const card = document.createElement('div'); card.className='card'; card.style.width='320px'; card.innerHTML = '<h4>'+escapeHtml(j.title)+'</h4><p class="muted">'+escapeHtml(j.description||'')+'</p><p style="font-size:12px" class="muted">Posted: '+(j.postedOn||'')+'</p>'; const actions = document.createElement('div'); actions.style.marginTop='8px'; const applied = apps.some(a=>a.jobId===j.id && (a.applicantEmail===localStorage.getItem('email')||a.applicant===localStorage.getItem('name'))); const btn = document.createElement('button'); btn.className='btn apply-btn'; btn.textContent = applied? 'Applied ✓' : (isMaintenanceMode() ? 'Applying Disabled' : 'Apply'); btn.disabled = applied || isMaintenanceMode(); if(!applied && !isMaintenanceMode()) btn.addEventListener('click', ()=>openApplyModal(j.id)); actions.appendChild(btn); card.appendChild(actions); grid.appendChild(card); }); main.appendChild(grid); }
+
+    function renderEvents(){ main.innerHTML=''; const events = [{id:1,title:'Resume Workshop',date:'2025-12-05',desc:'Hands-on resume review.'},{id:2,title:'Company Tech Talk: SmartAI',date:'2025-12-10',desc:'SmartAI engineers discuss ML at scale.'},{id:3,title:'Interview Prep',date:'2025-12-15',desc:'Mock interviews and feedback.'}]; const card = document.createElement('div'); card.className='card'; card.innerHTML = '<h3>Events</h3><p class="muted">Upcoming campus drives and webinars</p>'; const list = document.createElement('div'); list.style.display='grid'; list.style.gridTemplateColumns='repeat(auto-fill,minmax(280px,1fr))'; list.style.gap='12px'; events.forEach(ev=>{ const ec = document.createElement('div'); ec.className='card'; ec.innerHTML = '<h4>'+escapeHtml(ev.title)+'</h4><p class="muted">'+escapeHtml(ev.date)+'</p><p class="muted" style="margin-top:6px">'+escapeHtml(ev.desc)+'</p><div style="margin-top:10px;text-align:right"><button class="btn" data-id="'+ev.id+'">Register</button></div>'; ec.querySelector('button').addEventListener('click', ()=>{ if(!confirm('Register for \"'+ev.title+'\"?')) return; alert('Registered for '+ev.title); }); list.appendChild(ec); }); main.appendChild(card); main.appendChild(list); }
+
+    function renderSettings(){
+      main.innerHTML='';
+      const themeDark = localStorage.getItem('theme') === 'dark';
+      const notifications = localStorage.getItem('notificationsEnabled') === 'true';
+      const autoApply = parseInt(localStorage.getItem('autoApplyLimit') || '0', 10);
+      const defaultResume = localStorage.getItem('defaultResume') || '';
+      const profilePublic = localStorage.getItem('profilePublic') === 'true';
+
+      const card = document.createElement('div'); card.className = 'card';
+      card.innerHTML = `
+        <h3>Settings</h3>
+        <p class="muted">App preferences</p>
+
+        <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center">
+          <div>
+            <div class="muted">Theme</div>
+            <div style="margin-top:6px">Current: <strong>${themeDark? 'Dark' : 'Light'}</strong></div>
+          </div>
+          <div style="text-align:right">
+            <button id="toggleThemeBtn" class="btn secondary">${themeDark? 'Switch to Light' : 'Switch to Dark'}</button>
+          </div>
+
+          <div>
+            <div class="muted">Notifications</div>
+            <div style="margin-top:6px">Enable in-app notifications for important updates.</div>
+          </div>
+          <div style="text-align:right">
+            <label style="display:inline-flex;align-items:center;gap:8px"><input id="notifToggle" type="checkbox" ${notifications? 'checked' : ''}/> <span class="muted">Enabled</span></label>
+          </div>
+
+          <div>
+            <div class="muted">Auto-Apply Limit</div>
+            <div style="margin-top:6px">When using "Apply To All Jobs", limit how many jobs will be auto-applied (0 = unlimited).</div>
+          </div>
+          <div style="text-align:right">
+            <input id="autoApplyLimit" type="number" min="0" style="width:120px;padding:8px;border-radius:8px;border:1px solid #e6e9ef" value="${isNaN(autoApply)?0:autoApply}" />
+          </div>
+
+          <div>
+            <div class="muted">Default Resume Link</div>
+            <div style="margin-top:6px">A URL that will pre-fill when applying to jobs.</div>
+          </div>
+          <div style="text-align:right">
+            <input id="defaultResume" placeholder="https://..." style="width:100%" value="${escapeHtml(defaultResume)}" />
+          </div>
+
+          <div>
+            <div class="muted">Profile Visibility</div>
+            <div style="margin-top:6px">Allow employers/placement officers to view your profile.</div>
+          </div>
+          <div style="text-align:right">
+            <label style="display:inline-flex;align-items:center;gap:8px"><input id="profilePublicToggle" type="checkbox" ${profilePublic? 'checked' : ''}/> <span class="muted">Public</span></label>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;display:flex;gap:8px;justify-content:flex-end">
+          <button id="exportDataBtn" class="btn secondary">Export Data</button>
+          <button id="clearDataBtn" class="btn secondary">Clear demo data</button>
+          <button id="saveSettingsBtn" class="btn">Save Settings</button>
+        </div>
+      `;
+
+      main.appendChild(card);
+
+      document.getElementById('toggleThemeBtn').addEventListener('click', function(){ const cur = localStorage.getItem('theme')==='dark' ? 'light' : 'dark'; localStorage.setItem('theme', cur); applyTheme(); this.textContent = cur==='dark' ? 'Switch to Light' : 'Switch to Dark'; alert('Theme updated to '+cur); });
+
+      document.getElementById('exportDataBtn').addEventListener('click', function(){
+        const payload = {
+          profile: {
+            name: localStorage.getItem('name')||'',
+            email: localStorage.getItem('email')||'',
+            dept: localStorage.getItem('dept')||'',
+            year: localStorage.getItem('year')||'',
+            gpa: localStorage.getItem('gpa')||'',
+            phone: localStorage.getItem('phone')||'',
+            resume: localStorage.getItem('resume')||''
+          },
+          jobs: getJobs(),
+          applications: getApplications(),
+          placementRecords: getPlacementRecords(),
+          settings: {
+            theme: localStorage.getItem('theme')||'light',
+            notificationsEnabled: localStorage.getItem('notificationsEnabled')||'false',
+            autoApplyLimit: localStorage.getItem('autoApplyLimit')||'0',
+            defaultResume: localStorage.getItem('defaultResume')||''
+          }
+        };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'uniplace_export_'+new Date().toISOString().slice(0,10)+'.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+      });
+
+      document.getElementById('clearDataBtn').addEventListener('click', function(){ if(!confirm('Clear demo data (jobs, applications, placement records)?')) return; localStorage.removeItem('jobs'); localStorage.removeItem('applications'); localStorage.removeItem('placementRecords'); alert('Demo data cleared. Reloading.'); location.reload(); });
+
+      document.getElementById('saveSettingsBtn').addEventListener('click', function(){
+        const notif = !!document.getElementById('notifToggle').checked;
+        const limit = parseInt(document.getElementById('autoApplyLimit').value || '0', 10);
+        const defResume = document.getElementById('defaultResume').value.trim();
+        const profPub = !!document.getElementById('profilePublicToggle').checked;
+        localStorage.setItem('notificationsEnabled', notif? 'true':'false');
+        localStorage.setItem('autoApplyLimit', String(isNaN(limit)?0:limit));
+        localStorage.setItem('defaultResume', defResume);
+        localStorage.setItem('profilePublic', profPub? 'true':'false');
+        showProfileSavedToast();
+      });
+    }
+
+    // --- Toast for profile save ---
+    function showProfileSavedToast(){
+      let t = document.getElementById('profileSavedToast');
+      if(!t){
+        t = document.createElement('div');
+        t.id = 'profileSavedToast';
+        t.style.position = 'fixed';
+        t.style.bottom = '24px';
+        t.style.right = '24px';
+        t.style.background = 'linear-gradient(90deg,#16a34a,#22c55e)';
+        t.style.color = '#fff';
+        t.style.padding = '12px 18px';
+        t.style.borderRadius = '10px';
+        t.style.boxShadow = '0 6px 20px rgba(0,0,0,0.25)';
+        t.style.fontWeight = '600';
+        t.style.opacity = '0';
+        t.style.transition = 'opacity 0.4s ease';
+        document.body.appendChild(t);
       }
+      t.textContent = 'Profile saved successfully!';
+      t.style.opacity = '1';
+      setTimeout(()=>{ t.style.opacity='0'; }, 1800);
     }
 
-    // Storage helpers
-    function getPlacementRecords() {
-      const raw = localStorage.getItem('placementRecords');
-      if (!raw) {
-        localStorage.setItem('placementRecords', JSON.stringify(DEFAULT_RECORDS));
-        return DEFAULT_RECORDS.slice();
+    // --- Actions ---
+    function handlePostJob(){ const title=document.getElementById('jobTitle').value.trim(); const company=document.getElementById('jobCompany').value.trim(); const location=document.getElementById('jobLocation').value.trim(); const description=document.getElementById('jobDesc').value.trim(); if(!title||!company){ alert('Enter title and company'); return; } const jobs = getJobs(); const id = jobs.length? Math.max(...jobs.map(j=>j.id))+1 : 1; jobs.push({ id, title, company, location, description, postedOn: new Date().toISOString().slice(0,10) }); saveJobs(jobs); renderJobs(); }
+
+    function openApplyModal(jobId){ const job = getJobs().find(j=>j.id===jobId); if(!job){ alert('Job not found'); return; } document.getElementById('applyJobInfo').textContent = job.title + ' — ' + job.company + ' (' + (job.location||'') + ')'; document.getElementById('applyName').value = localStorage.getItem('name')||''; document.getElementById('applyEmail').value = localStorage.getItem('email')||''; document.getElementById('applyResume').value=''; document.getElementById('applyCover').value=''; const m = document.getElementById('applyModal'); m.style.display='flex'; m.dataset.jobId = jobId; document.body.style.overflow='hidden'; }
+    function closeApplyModal(){ const m = document.getElementById('applyModal'); m.style.display='none'; delete m.dataset.jobId; document.body.style.overflow=''; }
+    function submitApplicationForm(){ const m = document.getElementById('applyModal'); const jobId = parseInt(m.dataset.jobId,10); const name = document.getElementById('applyName').value.trim(); const email = document.getElementById('applyEmail').value.trim(); if(!name||!email){ alert('Provide name and email'); return; } const resume = document.getElementById('applyResume').value.trim(); const cover = document.getElementById('applyCover').value.trim(); const apps = getApplications(); const exists = apps.some(a=>a.jobId===jobId && (a.applicantEmail===email||a.applicant===name)); if(exists){ alert('Already applied'); return; } const job = getJobs().find(j=>j.id===jobId); apps.push({ job: job?job.title:'', company: job?job.company:'', jobId, applicant: name, applicantEmail: email, appliedOn: new Date().toISOString().slice(0,10), status: 'Pending', resume, coverLetter: cover }); saveApplications(apps); closeApplyModal(); showSuccessModal(); renderJobs(); }
+
+    function showSuccessModal(){ document.getElementById('successModal').style.display='flex'; document.body.style.overflow='hidden'; }
+    function closeSuccessModal(){ document.getElementById('successModal').style.display='none'; document.body.style.overflow=''; }
+
+    function showApplicationsForJob(jobId){ sessionStorage.setItem('applicationsFilterJobId', String(jobId)); navigateTo('applications'); }
+
+    // demo seeds
+    function seedDemoApplications(){ if(!confirm('Generate 20 demo applications for testing?')) return; const jobs = getJobs(); const apps = getApplications(); const names = ['Arjun','Bhavya','Chitra','Dev','Esha','Farhan','Gita','Hari','Iqbal','Jaya','Karan','Latha','Manu','Nina','Omar','Priya','Quinn','Ravi','Sneha','Tara']; for(let i=0;i<20;i++){ const job = jobs[i % jobs.length]; const name = names[i % names.length] + ' ' + (Math.floor(Math.random()*90)+10); const email = name.toLowerCase().replace(/\s+/g,'.') + '@demo.com'; apps.push({ job: job.title, company: job.company, jobId: job.id, applicant: name, applicantEmail: email, appliedOn: new Date(Date.now() - Math.floor(Math.random()*10000000000)).toISOString().slice(0,10), status: ['Pending','Shortlisted','Rejected'][Math.floor(Math.random()*3)] }); } saveApplications(apps); alert('Demo applications generated.'); navigateTo('applications'); }
+
+    function seedMyApplications(){ const role = localStorage.getItem('role')||'student'; if(role!=='student'){ alert('This action is for students only'); return; } if(!confirm('Generate 10 demo applications for your account?')) return; const jobs = getJobs(); const apps = getApplications(); const me = localStorage.getItem('name') || localStorage.getItem('email') || 'Demo Student'; const emailMe = localStorage.getItem('email') || (me.toLowerCase().split(' ').join('.') + '@demo.com'); for(let i=0;i<10;i++){ const job = jobs[i % jobs.length]; const now = new Date(); apps.push({ job: job.title, company: job.company, jobId: job.id, applicant: me, applicantEmail: emailMe, appliedOn: new Date(now.getTime() - i*86400000).toISOString().slice(0,10), status: 'Pending' }); } saveApplications(apps); alert('Your demo applications were generated.'); navigateTo('applications'); }
+
+    function seedMoreJobs(){ if(!confirm('Generate 100 sample jobs? This will add to existing jobs.')) return; const titles = ['Frontend Engineer','Backend Engineer','Fullstack Developer','Data Analyst','Data Scientist','ML Engineer','DevOps Engineer','QA Tester','Product Manager','UI/UX Designer','Mobile Developer','Cloud Engineer','Security Analyst','Systems Engineer','Site Reliability Engineer','Business Analyst','Tech Support','Network Engineer','Embedded Systems Engineer','Robotics Intern','Research Intern','AI Intern','Blockchain Developer','Game Developer','Graphics Programmer','Automation Engineer','Database Admin','Technical Writer','IT Consultant','SEO Specialist','Computer Vision Engineer','NLP Engineer','Hardware Engineer','Firmware Engineer','Performance Engineer','Platform Engineer','Integration Engineer','Support Engineer','Release Engineer','Build Engineer','Quality Engineer','Android Developer','iOS Developer','React Native Developer','.NET Developer','Java Developer','Python Developer','PHP Developer','Ruby Developer','Scala Developer','Go Developer','Rust Developer','Systems Programmer','Embedded C Engineer']; const companies = ['CodeWave','SmartAI','CreativeLabs','DataSolve','CloudWorks','NextGen','InnovateX','AlgoCore','NeuralNet','ByteCraft','SyncTech','BrightSoft','OptiSys','MegaLogic','ZenithLabs']; const jobs = getJobs(); const startId = jobs.length ? Math.max(...jobs.map(j=>j.id)) + 1 : 1; for(let i=0;i<100;i++){ const id = startId + i; const title = titles[i % titles.length]; const company = companies[i % companies.length]; const location = ['Bengaluru','Hyderabad','Mumbai','Chennai','Pune','Remote','Kolkata','Noida'][i % 8]; jobs.push({ id, title, company, location, description: title + ' at ' + company, postedOn: new Date().toISOString().slice(0,10) }); } saveJobs(jobs); alert('100 sample jobs added.'); renderJobs(); }
+
+    function seedMoreInternJobs(){
+      if(!confirm('Generate 200 intern jobs (focused on internships)?')) return;
+      const internTitles = ['Software Intern','Frontend Intern','Backend Intern','Fullstack Intern','AI/ML Intern','Data Science Intern','Research Intern','DevOps Intern','Cloud Intern','QA Intern','UX/UI Intern','Mobile Intern','Hardware Intern','Embedded Intern','Robotics Intern','Security Intern','NLP Intern','Computer Vision Intern','Blockchain Intern','Automation Intern'];
+      const companies = ['CodeWave','SmartAI','CreativeLabs','DataSolve','CloudWorks','NextGen','InnovateX','AlgoCore','NeuralNet','ByteCraft','SyncTech','BrightSoft','OptiSys','MegaLogic','ZenithLabs'];
+      const jobs = getJobs();
+      const startId = jobs.length ? Math.max(...jobs.map(j=>j.id)) + 1 : 1;
+      for(let i=0;i<200;i++){
+        const id = startId + i;
+        const title = internTitles[i % internTitles.length] + (i%5===0? ' (Summer)':'');
+        const company = companies[i % companies.length];
+        const location = ['Bengaluru','Hyderabad','Mumbai','Chennai','Pune','Remote','Kolkata','Noida'][i % 8];
+        jobs.push({ id, title, company, location, description: title + ' at ' + company + ' — Internship', postedOn: new Date().toISOString().slice(0,10) });
       }
-      try { return JSON.parse(raw); } catch (e) { return DEFAULT_RECORDS.slice(); }
+      saveJobs(jobs);
+      alert('200 intern jobs added.');
+      renderJobs();
     }
 
-    function savePlacementRecords(arr) {
-      localStorage.setItem('placementRecords', JSON.stringify(arr));
+    function seedApplyAllForStudent(){ const role = localStorage.getItem('role')||'student'; if(role!=='student'){ alert('Only students can perform this action'); return; } if(!confirm('Apply your account to ALL available jobs? This will create applications for jobs you have not applied to yet.')) return; const me = localStorage.getItem('name') || localStorage.getItem('email') || 'Demo Student'; const emailMe = localStorage.getItem('email') || (me.toLowerCase().split(' ').join('.') + '@demo.com'); const jobs = getJobs(); const apps = getApplications(); let limit = parseInt(localStorage.getItem('autoApplyLimit')||'0',10); if(isNaN(limit)) limit = 0; let added = 0; for(let i=0;i<jobs.length;i++){ if(limit>0 && added>=limit) break; const job = jobs[i]; const exists = apps.some(a => a.jobId === job.id && (a.applicantEmail === emailMe || a.applicant === me)); if(!exists){ apps.push({ job: job.title, company: job.company, jobId: job.id, applicant: me, applicantEmail: emailMe, appliedOn: new Date(Date.now() - i*86400000).toISOString().slice(0,10), status: 'Pending' }); added++; } } saveApplications(apps); alert('Applied to ' + added + ' new jobs.'); navigateTo('applications'); }
+
+    // --- Admin: system controls UI ---
+    function renderAdmin(){
+      // guard
+      if(localStorage.getItem('role')!=='admin'){ alert('Access denied. Admins only.'); navigateTo('dashboard'); return; }
+
+      main.innerHTML = '';
+      const card = document.createElement('div'); card.className='card'; card.innerHTML = '<h3>Admin — System Controls</h3><p class="muted">Manage system-wide settings, data and logs</p>';
+
+      // system status card
+      const statusCard = document.createElement('div'); statusCard.className='card'; statusCard.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div class="muted">Maintenance Mode</div>
+            <div style="margin-top:6px">Toggle to put the app into maintenance mode (disables certain user actions).</div>
+          </div>
+          <div style="text-align:right">
+            <label style="display:inline-flex;align-items:center;gap:8px"><input id="maintenanceToggle" type="checkbox" ${isMaintenanceMode()? 'checked' : ''}/> <span class="muted">Active</span></label>
+          </div>
+        </div>
+        <hr style="margin:12px 0;border:none;border-top:1px solid #eef2ff">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+          <button id="clearAllDataBtn" class="btn secondary">Clear ALL Data</button>
+          <button id="resetDefaultsBtn" class="btn secondary">Reset To Defaults</button>
+          <button id="exportSystemBtn" class="btn">Export System Data</button>
+        </div>
+      `;
+
+      // logs & quick actions
+      const logsCard = document.createElement('div'); logsCard.className='card'; logsCard.innerHTML = '<h4>System Logs & Quick Actions</h4><p class="muted">Recent events and quick admin commands</p>';
+      const logsList = document.createElement('div'); logsList.id = 'logsList'; logsList.style.maxHeight = '220px'; logsList.style.overflow = 'auto'; logsList.style.marginTop = '8px'; logsCard.appendChild(logsList);
+
+      const controlsCard = document.createElement('div'); controlsCard.className='card'; controlsCard.innerHTML = `
+        <h4>System Controls</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center">
+          <div>
+            <div class="muted">Global Auto-Apply Limit</div>
+            <div style="margin-top:6px"><input id="globalAutoApply" type="number" min="0" style="width:120px;padding:8px;border-radius:8px;border:1px solid #e6e9ef" value="${localStorage.getItem('autoApplyLimit')||0}" /></div>
+          </div>
+          <div>
+            <div class="muted">System Message Banner</div>
+            <div style="margin-top:6px"><input id="systemBanner" placeholder="Message to show to all users" style="width:100%" value="${escapeHtml(localStorage.getItem('systemBanner')||'')}" /></div>
+          </div>
+          <div>
+            <div class="muted">Default Placement Year</div>
+            <div style="margin-top:6px"><input id="defaultPlacementYear" type="number" style="width:120px;padding:8px;border-radius:8px;border:1px solid #e6e9ef" value="${localStorage.getItem('defaultPlacementYear')||2025}" /></div>
+          </div>
+          <div>
+            <div class="muted">Seed users (demo)</div>
+            <div style="margin-top:6px"><button id="seedUsersBtn" class="btn secondary">Generate Demo Users</button></div>
+          </div>
+        </div>
+        <div style="margin-top:12px;display:flex;justify-content:flex-end;gap:8px">
+          <button id="saveAdminSettings" class="btn">Save</button>
+        </div>
+      `;
+
+      main.appendChild(card); main.appendChild(statusCard); main.appendChild(controlsCard); main.appendChild(logsCard);
+
+      // populate logs
+      function refreshLogs(){ const container = document.getElementById('logsList'); container.innerHTML = ''; const logs = getSystemLogs().slice().reverse(); if(!logs.length){ container.innerHTML = '<div class="muted">No logs yet.</div>'; return; } logs.slice(0,200).forEach(l=>{ const div = document.createElement('div'); div.style.padding='8px'; div.style.borderBottom='1px solid #f1f5f9'; div.innerHTML = '<div style="font-size:12px;color:#111">'+escapeHtml(l.msg)+'</div><div class="muted" style="font-size:11px;margin-top:4px">'+escapeHtml(l.ts)+'</div>'; container.appendChild(div); }); }
+
+      refreshLogs();
+
+      // wire actions
+      document.getElementById('maintenanceToggle').addEventListener('change', function(){ const v = !!this.checked; setMaintenanceMode(v); addSystemLog('Maintenance mode set to '+v); alert('Maintenance mode: '+ (v? 'ON' : 'OFF')); refreshLogs(); });
+
+      document.getElementById('clearAllDataBtn').addEventListener('click', function(){ if(!confirm('This will erase ALL stored data (jobs, applications, placementRecords, settings, logs). Continue?')) return; localStorage.clear(); // re-seed minimal defaults
+        setStorage('placementRecords', DEFAULT_RECORDS); addSystemLog('All data cleared by admin'); alert('All data cleared. Reloading.'); location.reload(); });
+
+      document.getElementById('resetDefaultsBtn').addEventListener('click', function(){ if(!confirm('Reset jobs, applications and placement records to initial demo defaults?')) return; localStorage.removeItem('jobs'); localStorage.removeItem('applications'); setStorage('placementRecords', DEFAULT_RECORDS.slice()); addSystemLog('System reset to defaults'); alert('Reset complete.'); navigateTo('admin'); });
+
+      document.getElementById('exportSystemBtn').addEventListener('click', function(){ const payload = { jobs: getJobs(), applications: getApplications(), placementRecords: getPlacementRecords(), settings: { maintenanceMode: isMaintenanceMode(), autoApplyLimit: localStorage.getItem('autoApplyLimit')||0, systemBanner: localStorage.getItem('systemBanner')||'' } }; const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'}); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'uniplace_system_export_'+new Date().toISOString().slice(0,10)+'.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); addSystemLog('System exported by admin'); refreshLogs(); });
+
+      document.getElementById('seedUsersBtn').addEventListener('click', function(){ if(!confirm('Generate 10 demo user profiles?')) return; const demoUsers = []; for(let i=1;i<=10;i++){ demoUsers.push({ name: 'DemoUser'+i, email: 'user'+i+'@demo.com', role: 'student' }); } setStorage('demoUsers', demoUsers); addSystemLog('Generated 10 demo users'); alert('10 demo users created.'); refreshLogs(); });
+
+      document.getElementById('saveAdminSettings').addEventListener('click', function(){ const gLimit = parseInt(document.getElementById('globalAutoApply').value||'0',10); const banner = document.getElementById('systemBanner').value.trim(); const year = parseInt(document.getElementById('defaultPlacementYear').value||'2025',10); localStorage.setItem('autoApplyLimit', isNaN(gLimit)?'0':String(gLimit)); localStorage.setItem('systemBanner', banner); localStorage.setItem('defaultPlacementYear', isNaN(year)?'2025':String(year)); addSystemLog('Admin updated settings: autoApplyLimit='+gLimit+', banner set'); alert('Admin settings saved.'); refreshLogs(); });
     }
 
-    function renderPlacementRecords() {
-      const area = document.getElementById('recordsArea');
-      const records = getPlacementRecords();
-      area.innerHTML = `
-        <table class='data-table'>
-          <thead><tr><th>Student</th><th>Dept</th><th>Company</th><th>Package</th><th>Year</th><th>Action</th></tr></thead>
-          <tbody>
-            ${records.map((r, idx) => `
-              <tr>
-                <td>${r.student}</td>
-                <td>${r.dept}</td>
-                <td>${r.company}</td>
-                <td>${r.package}</td>
-                <td>${r.year}</td>
-                <td><button onclick='removeRecord(${idx})'>Remove</button></td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>`;
+    // --- Navigation & init ---
+    function navigateTo(page){
+      setActive(page);
+      if(page==='dashboard') renderDashboard();
+      else if(page==='jobs') renderJobs();
+      else if(page==='applications') renderApplications();
+      else if(page==='reports') renderReports();
+      else if(page==='profile') renderProfile();
+      else if(page==='companies') renderCompanies();
+      else if(page==='events') renderEvents();
+      else if(page==='settings') renderSettings();
+      else if(page==='admin') renderAdmin();
     }
 
-    function addPlacementRecord() {
-      const s = document.getElementById('recStudent').value.trim();
-      const d = document.getElementById('recDept').value.trim();
-      const c = document.getElementById('recCompany').value.trim();
-      const p = parseFloat(document.getElementById('recPackage').value) || 0;
-      const y = parseInt(document.getElementById('recYear').value, 10) || new Date().getFullYear();
-      if (!s || !d || !c || !p) { alert('Please fill Student, Dept, Company and Package'); return; }
-      const records = getPlacementRecords();
-      records.push({ student: s, dept: d, company: c, package: p, year: y });
-      savePlacementRecords(records);
-      // clear inputs
-      document.getElementById('recStudent').value = '';
-      document.getElementById('recDept').value = '';
-      document.getElementById('recCompany').value = '';
-      document.getElementById('recPackage').value = '';
-      document.getElementById('recYear').value = '';
-      renderPlacementRecords();
-    }
-
-    function removeRecord(idx) {
-      if (!confirm('Remove this record?')) return;
-      const records = getPlacementRecords();
-      records.splice(idx, 1);
-      savePlacementRecords(records);
-      renderPlacementRecords();
-    }
-
-    // login flow
-    function login() {
-      try {
-        console.log('login() called');
-        const nameEl = document.getElementById('name');
-        const emailEl = document.getElementById('email');
-        const roleEl = document.getElementById('role');
-        if (!nameEl || !emailEl || !roleEl) { alert('Login elements missing'); return; }
-
-        const name = nameEl.value.trim();
-        const email = emailEl.value.trim();
-        const role = roleEl.value;
-
-        if (!name || !email) { alert('Please enter name and valid email.'); return; }
-
-        localStorage.setItem('name', name);
-        localStorage.setItem('email', email);
-        localStorage.setItem('role', role);
-
-        document.getElementById('login').style.display = 'none';
-        document.getElementById('topbar').style.display = 'flex';
-        document.getElementById('sidebar').style.display = 'flex';
-        document.getElementById('main-content').style.display = 'block';
-
-        document.getElementById('userBadge').textContent = ${name} (${role.replace('_',' ')});
-
-        // show dashboard
-        const firstLink = document.querySelector('.sidebar a');
-        showPage('dashboard', firstLink || null);
-      } catch (err) {
-        console.error(err);
-        alert('Login failed — check console');
-      }
-    }
-
-    function showLogin() {
-      document.getElementById('login').style.display = 'flex';
-      document.getElementById('topbar').style.display = 'none';
-      document.getElementById('sidebar').style.display = 'none';
-      document.getElementById('main-content').style.display = 'none';
-
-      // clear session
-      localStorage.removeItem('name');
-      localStorage.removeItem('email');
-      localStorage.removeItem('role');
-    }
-
-    function validateEmail() {
-      const email = document.getElementById('email').value;
-      const error = document.getElementById('emailError');
-      const loginBtn = document.getElementById('loginBtn');
-      const pattern = /^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
-      if (!pattern.test(email)) {
-        error.textContent = 'Enter a valid email';
-        loginBtn.disabled = true;
-      } else {
-        error.textContent = '';
-        loginBtn.disabled = false;
-      }
-    }
-
-    // on load restore session if present
-    document.addEventListener('DOMContentLoaded', () => {
-      const savedName = localStorage.getItem('name');
-      const savedRole = localStorage.getItem('role');
-      if (!savedName) {
-        showLogin();
-      } else {
-        document.getElementById('login').style.display = 'none';
-        document.getElementById('topbar').style.display = 'flex';
-        document.getElementById('sidebar').style.display = 'flex';
-        document.getElementById('main-content').style.display = 'block';
-        document.getElementById('userBadge').textContent = ${savedName} (${(savedRole||'student').replace('_',' ')});
-        showPage('dashboard', document.querySelector('.sidebar a'));
-      }
+    document.addEventListener('click', function(e){
+      const a = e.target.closest('.sidebar a');
+      if(a){ e.preventDefault(); navigateTo(a.dataset.page); }
     });
+
+    // login handlers
+    document.getElementById('loginBtn').addEventListener('click', function(){
+      const name = document.getElementById('name').value.trim(); const email = document.getElementById('email').value.trim(); const role = document.getElementById('role').value;
+      if(!name||!email){ alert('Enter name and email'); return; }
+      localStorage.setItem('name', name); localStorage.setItem('email', email); localStorage.setItem('role', role);
+      document.getElementById('loginModal').style.display='none'; document.getElementById('topbar').style.display='flex'; document.getElementById('sidebar').style.display='block'; document.getElementById('main-content').style.display='block';
+      document.getElementById('userBadge').textContent = name + ' (' + role.replace(/_/g,' ') + ')';
+      // show admin nav if admin
+      if(role==='admin') document.getElementById('adminNavLink').style.display='block'; else document.getElementById('adminNavLink').style.display='none';
+      addSystemLog(`User signed in: ${name} (${role})`);
+      navigateTo('dashboard');
+    });
+    document.getElementById('demoBtn').addEventListener('click', function(){ document.getElementById('name').value='Demo Student'; document.getElementById('email').value='student@demo.com'; document.getElementById('role').value='student'; });
+    document.getElementById('logoutBtn').addEventListener('click', function(){ localStorage.removeItem('name'); localStorage.removeItem('email'); localStorage.removeItem('role'); document.getElementById('topbar').style.display='none'; document.getElementById('sidebar').style.display='none'; document.getElementById('main-content').style.display='none'; document.getElementById('loginModal').style.display='flex'; });
+
+    // apply modal bindings
+    document.getElementById('applyCancel').addEventListener('click', closeApplyModal);
+    document.getElementById('applySubmit').addEventListener('click', submitApplicationForm);
+    document.getElementById('successOk').addEventListener('click', closeSuccessModal);
+
+    // theme
+    function applyTheme(){ const t = localStorage.getItem('theme')||'light'; if(t==='dark'){ document.body.style.background = 'linear-gradient(180deg,#0b1220,#071026)'; document.documentElement.style.setProperty('--card','#0f1724'); document.documentElement.style.setProperty('--muted','#9aa4b2'); } else { document.body.style.background = ''; document.documentElement.style.setProperty('--card','#ffffff'); document.documentElement.style.setProperty('--muted','#6b7280'); } }
+
+    // initialize
+    (function init(){ applyTheme(); const savedName = localStorage.getItem('name'); const savedRole = localStorage.getItem('role'); if(savedRole==='admin') document.getElementById('adminNavLink').style.display='block'; if(!savedName){ document.getElementById('loginModal').style.display='flex'; } else { document.getElementById('loginModal').style.display='none'; document.getElementById('topbar').style.display='flex'; document.getElementById('sidebar').style.display='block'; document.getElementById('main-content').style.display='block'; document.getElementById('userBadge').textContent = savedName + ' (' + (savedRole||'student').replace(/_/g,' ') + ')'; navigateTo('dashboard'); } })();
   </script>
 </body>
 </html>
